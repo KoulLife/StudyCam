@@ -1,0 +1,65 @@
+package com.koul.StudyCam.User.utils;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.koul.StudyCam.User.domain.User;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class UserDetailsImpl implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
+
+	private String username;
+
+	@JsonIgnore
+	private String password;
+
+	private String email;
+
+	private Collection<? extends GrantedAuthority> authorities;
+
+	public static UserDetailsImpl build(User user) {
+		List<GrantedAuthority> authorities = user.getRoles().stream()
+			.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+			.collect(Collectors.toList());
+
+		return new UserDetailsImpl(
+			user.getId(),
+			user.getUsername(),
+			user.getPassword(),
+			user.getEmail(),
+			authorities
+		);
+	}
+
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public String getUsername() {
+		return username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+}
