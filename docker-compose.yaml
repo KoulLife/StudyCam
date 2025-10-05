@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  app-db:
+    image: mariadb:latest
+    container_name: app-db
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+      - MARIADB_ROOT_PASSWORD=P@ssw0rd!
+      - MARIADB_DATABASE=study
+      - MARIADB_USER=admin
+      - MARIADB_PASSWORD=P@ssw0rd!
+    volumes:
+      - ./app-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+networks:
+  backend:
