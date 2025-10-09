@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.utils;
+package com.koul.StudyCam.user.utils;
 
 import java.security.Key;
 import java.util.Date;
@@ -59,6 +59,17 @@ public class JwtUtils {
 		}
 
 		return false;
+	}
+
+	public long getExpiration(String token) {
+		Claims claims = Jwts.parser()
+			.setSigningKey(key())
+			.build()
+			.parseClaimsJws(token)
+			.getBody();
+
+		Date expiration = claims.getExpiration();
+		return expiration.getTime() - System.currentTimeMillis();
 	}
 }
 

@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.utils;
+package com.koul.StudyCam.user.utils;
 
 import java.io.IOException;
 
@@ -17,9 +17,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.koul.StudyCam.User.service.UserDetailsServiceImpl;
+import com.koul.StudyCam.user.service.AuthService;
+import com.koul.StudyCam.user.service.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+
+	@Autowired
+	private AuthService authService;
 
 	@Autowired
 	private JwtUtils jwtUtils;
@@ -35,6 +39,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		try {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+
+				// Check Blacklist Token
+				if (authService.isBlacklisted(jwt)) {
+					logger.warn("Blocked (blacklisted) token detected.");
+					filterChain.doFilter(request, response);
+					return;
+				}
+
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
