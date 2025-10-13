@@ -72,6 +72,7 @@ mysql/
 **/app-data/**
 **/mariadb-data/**
 **/mysql-data/**
+**/redis-data/**
 
 # Specific DB files
 *.frm
