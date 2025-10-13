@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.domain;
+package com.koul.StudyCam.user.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.dto.request;
+package com.koul.StudyCam.user.dto.request;
 
 import java.util.Set;
 

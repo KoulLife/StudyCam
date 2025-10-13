@@ -1,13 +1,13 @@
-package com.koul.StudyCam.User.service;
+package com.koul.StudyCam.user.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.koul.StudyCam.User.domain.User;
-import com.koul.StudyCam.User.repository.UserRepository;
-import com.koul.StudyCam.User.utils.UserDetailsImpl;
+import com.koul.StudyCam.user.domain.User;
+import com.koul.StudyCam.user.repository.UserRepository;
+import com.koul.StudyCam.user.utils.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;
 

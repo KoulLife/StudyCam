@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.dto.request;
+package com.koul.StudyCam.user.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

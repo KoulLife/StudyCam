@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.dto.response;
+package com.koul.StudyCam.user.dto.response;
 
 import java.util.List;
 

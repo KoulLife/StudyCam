@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.utils;
+package com.koul.StudyCam.user.utils;
 
 import java.io.IOException;
 import java.util.HashMap;

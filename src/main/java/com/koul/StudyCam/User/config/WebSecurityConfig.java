@@ -1,8 +1,8 @@
-package com.koul.StudyCam.User.config;
+package com.koul.StudyCam.user.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,9 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.koul.StudyCam.User.service.UserDetailsServiceImpl;
-import com.koul.StudyCam.User.utils.AuthEntryPointJwt;
-import com.koul.StudyCam.User.utils.AuthTokenFilter;
+import com.koul.StudyCam.user.service.UserDetailsServiceImpl;
+import com.koul.StudyCam.user.utils.AuthEntryPointJwt;
+import com.koul.StudyCam.user.utils.AuthTokenFilter;
 
 import lombok.RequiredArgsConstructor;
 

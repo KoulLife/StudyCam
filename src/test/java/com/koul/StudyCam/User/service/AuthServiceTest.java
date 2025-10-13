@@ -1,4 +1,4 @@
-package com.koul.StudyCam.User.service;
+package com.koul.StudyCam.user.service;
 
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
@@ -15,17 +15,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.koul.StudyCam.User.domain.ERole;
-import com.koul.StudyCam.User.domain.Role;
-import com.koul.StudyCam.User.domain.User;
-import com.koul.StudyCam.User.dto.request.LoginRequest;
-import com.koul.StudyCam.User.dto.request.SignupRequest;
-import com.koul.StudyCam.User.dto.response.JwtResponse;
-import com.koul.StudyCam.User.dto.response.MessageResponse;
-import com.koul.StudyCam.User.repository.RoleRepository;
-import com.koul.StudyCam.User.repository.UserRepository;
-import com.koul.StudyCam.User.utils.JwtUtils;
-import com.koul.StudyCam.User.utils.UserDetailsImpl;
+import com.koul.StudyCam.user.domain.ERole;
+import com.koul.StudyCam.user.domain.Role;
+import com.koul.StudyCam.user.domain.User;
+import com.koul.StudyCam.user.dto.request.LoginRequest;
+import com.koul.StudyCam.user.dto.request.SignupRequest;
+import com.koul.StudyCam.user.dto.response.JwtResponse;
+import com.koul.StudyCam.user.dto.response.MessageResponse;
+import com.koul.StudyCam.user.repository.RoleRepository;
+import com.koul.StudyCam.user.repository.UserRepository;
+import com.koul.StudyCam.user.utils.JwtUtils;
+import com.koul.StudyCam.user.utils.UserDetailsImpl;
 
 class AuthServiceTest {
 

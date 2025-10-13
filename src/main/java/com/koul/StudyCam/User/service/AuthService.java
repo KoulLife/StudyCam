@@ -1,10 +1,12 @@
-package com.koul.StudyCam.User.service;
+package com.koul.StudyCam.user.service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,17 +15,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.koul.StudyCam.User.domain.ERole;
-import com.koul.StudyCam.User.domain.Role;
-import com.koul.StudyCam.User.domain.User;
-import com.koul.StudyCam.User.dto.request.LoginRequest;
-import com.koul.StudyCam.User.dto.request.SignupRequest;
-import com.koul.StudyCam.User.dto.response.JwtResponse;
-import com.koul.StudyCam.User.dto.response.MessageResponse;
-import com.koul.StudyCam.User.repository.RoleRepository;
-import com.koul.StudyCam.User.repository.UserRepository;
-import com.koul.StudyCam.User.utils.JwtUtils;
-import com.koul.StudyCam.User.utils.UserDetailsImpl;
+import com.koul.StudyCam.user.domain.ERole;
+import com.koul.StudyCam.user.domain.Role;
+import com.koul.StudyCam.user.domain.User;
+import com.koul.StudyCam.user.dto.request.LoginRequest;
+import com.koul.StudyCam.user.dto.request.SignupRequest;
+import com.koul.StudyCam.user.dto.response.JwtResponse;
+import com.koul.StudyCam.user.dto.response.MessageResponse;
+import com.koul.StudyCam.user.repository.RoleRepository;
+import com.koul.StudyCam.user.repository.UserRepository;
+import com.koul.StudyCam.user.utils.JwtUtils;
+import com.koul.StudyCam.user.utils.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,6 +42,10 @@ public class AuthService {
 	private final AuthenticationManager authenticationManager;
 
 	private final JwtUtils jwtUtils;
+
+	private final RedisTemplate<String, Object> redisTemplate;
+
+	private static final String PREFIX_BLACKLIST = "blacklist:";
 
 	@Transactional
 	public MessageResponse resgisterUser(SignupRequest signupRequest) {
@@ -114,4 +120,18 @@ public class AuthService {
 			roles
 		);
 	}
+
+	public void addToBlacklist(String token, long expirationMs) {
+		redisTemplate.opsForValue().set(
+			PREFIX_BLACKLIST + token,
+			"invalid",
+			expirationMs,
+			TimeUnit.MILLISECONDS
+		);
+	}
+
+	public boolean isBlacklisted(String token) {
+		return redisTemplate.hasKey(PREFIX_BLACKLIST + token);
+	}
+
 }
