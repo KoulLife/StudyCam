@@ -1,8 +1,11 @@
-package com.koul.StudyCam.User.domain;
+package com.koul.StudyCam.user.domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import com.koul.StudyCam.friend.domain.Friend;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -41,6 +45,15 @@ public class User {
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<UserCategory> userCategories = new HashSet<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Friend> friends = new HashSet<>();
+
+	@OneToMany(mappedBy = "friend", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Friend> followers = new HashSet<>();
 
 	@Builder
 	public User(String username, String password, String email) {
